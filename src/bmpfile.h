@@ -135,6 +135,7 @@ rgb_pixel_t *bmp_get_pixel(bmpfile_t *bmp, uint32_t x, uint32_t y);
 bool bmp_set_pixel(bmpfile_t *bmp, uint32_t x, uint32_t y, rgb_pixel_t pixel);
 
 bool bmp_save(bmpfile_t *bmp, const char *filename);
+bool bmp_write(bmpfile_t *bmp, FILE *fp);
 
 BMP_END_DECLS
 

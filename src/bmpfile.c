@@ -154,8 +154,8 @@ bmp_create_standard_color_table(bmpfile_t *bmp)
     bmp->colors[i].red = 166;
     bmp->colors[i].green = 202;
     bmp->colors[i].blue = 240;
-   
-    // overwrite colors 246 to 255 
+
+    // overwrite colors 246 to 255
     i = 246;
     bmp->colors[i].red = 255;
     bmp->colors[i].green = 251;
@@ -628,12 +628,21 @@ bool
 bmp_save(bmpfile_t *bmp, const char *filename)
 {
   FILE *fp;
-  int row;
-  unsigned char *buf;
-
+  bool result;
   /* Create the file */
   if ((fp = fopen(filename, "wb")) == NULL)
     return FALSE;
+  result = bmp_write(bmp, fp);
+  fclose(fp);
+
+  return result;
+}
+
+bool
+bmp_write(bmpfile_t *bmp, FILE *fp)
+{
+  int row;
+  unsigned char *buf;
 
   /* Write the file */
   bmp_write_header(bmp, fp);
@@ -703,8 +712,6 @@ bmp_save(bmpfile_t *bmp, const char *filename)
     }
     free(buf);
   }
-
-  fclose(fp);
 
   return TRUE;
 }
